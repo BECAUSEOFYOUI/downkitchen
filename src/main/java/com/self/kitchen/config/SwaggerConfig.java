@@ -14,7 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
     //创建文档说明
     public ApiInfo createAI(){
-        ApiInfo apiInfo = new ApiInfoBuilder().title("天气预报小助手").description("实现一款小的天气预报")
+        ApiInfo apiInfo = new ApiInfoBuilder().title("好逗菜谱").description("为广大吃货打造")
                 .contact(new Contact("Feri","http://www.17feri.top","xingfei_work@163.com")).build();
         return apiInfo;
     }
@@ -22,6 +22,6 @@ public class SwaggerConfig {
     @Bean
     public Docket createD(){
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(createAI()).select().
-                apis(RequestHandlerSelectors.basePackage("com.qfedu.springboot2.controller")).build();
+                apis(RequestHandlerSelectors.basePackage("com.self.kitchen.web")).build();
     }
 }

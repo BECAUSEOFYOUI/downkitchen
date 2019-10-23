@@ -2,7 +2,8 @@ package com.self.kitchen.config;
 
 
 
-import com.wang.manager.shiro.MyRealm;
+
+import com.self.kitchen.shiro.MyRealm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +39,7 @@ public class ShiroConfig {
         map.put("/api/user/login.do","anon");
         //静态资源放行
         map.put("/static/media/**","anon");
+        map.put("/swagger-ui.html","anon");
         //全部拦截
         map.put("/*","authc");
         factoryBean.setFilterChainDefinitionMap(map);
