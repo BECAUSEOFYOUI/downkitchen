@@ -1,7 +1,10 @@
 package com.self.kitchen.service;
 
-import com.self.kitchen.entity.User;
+
+
+import com.self.kitchen.dto.UserDto;
+import com.self.kitchen.vo.ResultVo;
 
 public interface UserService {
-    int login(String username,String password);
+    ResultVo login(UserDto userDto);
 }

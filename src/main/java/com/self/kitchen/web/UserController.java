@@ -1,5 +1,6 @@
 package com.self.kitchen.web;
 
+import com.self.kitchen.dto.UserDto;
 import com.self.kitchen.service.UserService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.*;
@@ -21,12 +22,7 @@ public class UserController {
             @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "string")
     })
     @ResponseBody
-    public ResultVo<String> login(String username,String password) {
-       int result =  userService.login(username,password);
-        if(result == 1){
-            return new ResultVo<String>("success","登陆成功");
-        }else{
-            return new ResultVo<String>("fail","用户名或密码错误");
-        }
+    public ResultVo login(UserDto userDto) {
+       return userService.login(userDto);
     }
 }

@@ -36,11 +36,15 @@ public class ShiroConfig {
         //4.设置拦截规则 anon:匿名访问放行 谁都可以使用 authc:认证访问 必须登陆才可以使用
         Map<String,String> map = new HashMap<>();
         map.put("/login.html","anon");
-        map.put("/api/user/login.do","anon");
+        map.put("/api/user/*","anon");
         //静态资源放行
         map.put("/static/media/**","anon");
         map.put("/swagger-ui.html","anon");
+        map.put("/swagger-resources/**","anon");
+        /*map.put("/v2/**","anon");
+        map.put("/webjars/**","anon");*/
         //全部拦截
+       /* map.put("api/food/*","anon");*/
         map.put("/*","authc");
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;

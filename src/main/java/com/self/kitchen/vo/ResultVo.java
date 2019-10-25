@@ -3,19 +3,29 @@ package com.self.kitchen.vo;
 import lombok.Data;
 
 @Data
-public class ResultVo<T> {
-    private T data;
+public class ResultVo {
+    private Object data;
     private String msg;
-    public ResultVo(){
+    private int code;
 
-    }
-    public ResultVo(T data,String msg){
-        this.data=data;
-        this.msg=msg;
-    }
-    private static ResultVo setOK(Object data){
+    public static ResultVo setOK(Object obj){
         ResultVo resultVo = new ResultVo();
-        resultVo.setData(data);
+        resultVo.setCode(200);
+        resultVo.setMsg("OK");
+        resultVo.setData(obj);
         return resultVo;
+    }
+    public static ResultVo setERROR(){
+        ResultVo resultVo = new ResultVo();
+        resultVo.setCode(400);
+        resultVo.setMsg("ERROR");
+        resultVo.setData(null);
+        return resultVo;
+    }
+    public static ResultVo setResult(boolean flag,Object obj){
+        if(flag){
+            ResultVo.setOK(obj);
+        }
+        return ResultVo.setERROR();
     }
 }
