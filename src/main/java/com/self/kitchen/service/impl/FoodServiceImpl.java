@@ -1,7 +1,8 @@
 package com.self.kitchen.service.impl;
 
+import com.self.kitchen.dao.FoodDao;
 import com.self.kitchen.dao.FoodTypeDao;
-import com.self.kitchen.dao.TitleType;
+import com.self.kitchen.dto.TitleType;
 import com.self.kitchen.dto.ChildType;
 import com.self.kitchen.entity.FoodsType;
 import com.self.kitchen.service.FoodService;
@@ -15,20 +16,30 @@ import java.util.List;
 @Service
 public class FoodServiceImpl implements FoodService {
     @Autowired
-    FoodTypeDao foodDao;
+    FoodTypeDao foodTypeDao;
+    @Autowired
+    FoodDao foodDao;
+
     @Override
     public ResultVo selectFoodsType() {
-        List<TitleType> foodsTitle = foodDao.selectFoodsTitle();
+        List<TitleType> foodsTitle = foodTypeDao.selectFoodsTitle();
         List<ChildType> childTypeList = new ArrayList<>();
-        for(int i=0;i<foodsTitle.size();i++){
-           TitleType t =  foodsTitle.get(i);
+        for (int i = 0; i < foodsTitle.size(); i++) {
+            TitleType t = foodsTitle.get(i);
             ChildType childType = new ChildType();
             childType.setId(t.getId());
             childType.setName(t.getName());
-            List<FoodsType> foodsType = foodDao.selectFoodsType(t.getId());
+            List<FoodsType> foodsType = foodTypeDao.selectFoodsType(t.getId());
             childType.setChildTypes(foodsType);
             childTypeList.add(childType);
         }
         return ResultVo.setOK(childTypeList);
     }
+
+    @Override
+    public ResultVo selectFoods(Integer foodId) {
+
+        return ResultVo.setOK(foodDao.selectFoods(foodId));
+    }
+
 }

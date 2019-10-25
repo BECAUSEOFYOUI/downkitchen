@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
     @Autowired
     UserService userService;
-    @GetMapping("/api/user/login.do")
+    @PostMapping("/api/user/login.do")
     @ApiOperation(value="实现用户的登陆",notes = "实现用户的登陆")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "账户",required = true,dataType = "string"),

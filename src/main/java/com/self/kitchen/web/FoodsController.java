@@ -3,7 +3,10 @@ package com.self.kitchen.web;
 import com.self.kitchen.service.FoodService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +26,16 @@ public class FoodsController {
     public ResultVo selectFoodTitle(){
         return foodService.selectFoodsType();
     }
+
+
+    @GetMapping("/api/food/selectFoods")
+    @ApiOperation(value = "查询食物的信息",notes = "查询食物的信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "食物ID",required = true,dataType = "int")
+    })
+    public ResultVo selectFoods(Integer id){
+        return foodService.selectFoods(id);
+    }
+
 
 }
