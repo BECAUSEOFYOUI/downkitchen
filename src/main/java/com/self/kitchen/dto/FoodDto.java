@@ -2,15 +2,17 @@ package com.self.kitchen.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class FoodDto {
-    private int id;
+public class FoodDto implements Serializable {
+    private Integer id;
     private String foodName;
     private String foodImg;
     private int clickNum;
     private int times;
     private int collectNum;
-    private int uid;
+    private Integer uid;
     private String username;
 
 }

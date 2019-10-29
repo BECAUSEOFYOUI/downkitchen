@@ -4,7 +4,7 @@ package com.self.kitchen.dao;
 import com.self.kitchen.dto.UserDto;
 
 
-import com.self.kitchen.entity.User;
+
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 public interface UserDao {

@@ -8,4 +8,7 @@ public interface FoodService {
     ResultVo selectFoods(Integer foodId);
 
 
+    ResultVo selectStepById(Integer id);
+
+    ResultVo selectMaterial(Integer fid);
 }
