@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +42,8 @@ public class UserController {
         return resultVo;
     }
 
+    @GetMapping("/api/user/userMessage")
+    @ResponseBody
     @ApiOperation(value="用户信息展示",notes = "用户信息展示")
     @ApiImplicitParam(name = "username",value = "账户",dataType = "string")
     public ResultVo userMessage(String username){
