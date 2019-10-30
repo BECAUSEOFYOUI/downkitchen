@@ -11,6 +11,8 @@ import com.self.kitchen.dto.TitleType;
 import com.self.kitchen.dto.ChildType;
 import com.self.kitchen.entity.FoodsType;
 
+import com.self.kitchen.entity.Mariable;
+import com.self.kitchen.entity.Step;
 import com.self.kitchen.service.FoodService;
 
 import com.self.kitchen.utils.JsonUtils;
@@ -20,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
+
 
 
 import javax.annotation.Resource;
@@ -40,14 +42,34 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResultVo selectFoodsType() {
-        List<TitleType> foodsTitle = foodTypeDao.selectFoodsTitle();
+        List<TitleType> foodsTitle=null;
+        String titleStr = redisTemplate.opsForValue().get("TITLETYPE");
+        if(titleStr!=null&&!titleStr.equals("")){
+            System.out.println("从缓存中获取foodsTitle");
+            foodsTitle=JsonUtils.jsonToList(titleStr,TitleType.class);
+        }else{
+            System.out.println("从数据库中获取foodsTitle");
+            foodsTitle=foodTypeDao.selectFoodsTitle();
+            redisTemplate.opsForValue().set("TITLETYPE",JsonUtils.objectToJson(foodsTitle));
+        }
+
         List<ChildType> childTypeList = new ArrayList<>();
         for (int i = 0; i < foodsTitle.size(); i++) {
             TitleType t = foodsTitle.get(i);
             ChildType childType = new ChildType();
             childType.setId(t.getId());
             childType.setName(t.getName());
-            List<FoodsType> foodsType = foodTypeDao.selectFoodsType(t.getId());
+            List<FoodsType> foodsType=null;
+            String foodsTypeStr=redisTemplate.opsForValue().get("FOODSTYPE");
+            if(foodsTypeStr!=null&&!foodsTypeStr.equals("")){
+                System.out.println("从缓存中获取FoodsType");
+                foodsType=JsonUtils.jsonToList(foodsTypeStr,FoodsType.class);
+            }else{
+                System.out.println("从数据库中获取FoodsType");
+                foodsType = foodTypeDao.selectFoodsType(t.getId());
+                redisTemplate.opsForValue().set("FOODSTYPE",JsonUtils.objectToJson(foodsType));
+            }
+
             childType.setChildTypes(foodsType);
             childTypeList.add(childType);
         }
@@ -59,14 +81,14 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public ResultVo selectFoods(Integer foodId) {
         FoodDto foodDto=null;
-        String jsonStr = redisTemplate.opsForValue().get("FOOD2");
+        String jsonStr = redisTemplate.opsForValue().get("FOOD2"+foodId);
         if(jsonStr==null){
-            System.out.println("从数据库中获取");
+            System.out.println("从数据库中获取Foods");
             foodDto=foodDao.selectFoods(foodId);
-            redisTemplate.opsForValue().set("FOOD2", JsonUtils.objectToJson(foodDto));
+            redisTemplate.opsForValue().set("FOOD2"+foodId, JsonUtils.objectToJson(foodDto));
         }else{
-            System.out.println("从缓存中获取");
-            foodDto = JsonUtils.jsonToPojo(redisTemplate.opsForValue().get("FOOD2"),FoodDto.class);
+            System.out.println("从缓存中获取foods");
+            foodDto = JsonUtils.jsonToPojo(jsonStr,FoodDto.class);
         }
 
         return ResultVo.setOK(foodDto);
@@ -74,13 +96,33 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ResultVo selectStepById(Integer id) {
+        List<Step> steps = null;
+        String jsonStr = redisTemplate.opsForValue().get("STEPS"+id);
+        if(jsonStr!=null&& !jsonStr.equals("")){
+            System.out.println("从缓存中获取Step");
+            steps = JsonUtils.jsonToList(jsonStr,Step.class);
+        }else{
+            System.out.println("从数据库中获取Step");
+            steps = foodDao.selectStepByFId(id);
+            redisTemplate.opsForValue().set("STEPS"+id,JsonUtils.objectToJson(steps));
+        }
 
-        return ResultVo.setOK(foodDao.selectStepByFId(id));
+        return ResultVo.setOK(steps);
     }
 
     @Override
     public ResultVo selectMaterial(Integer fid) {
-        return ResultVo.setOK(foodDao.selectMaterial(fid));
+        List<Mariable> mariables = null;
+        String str = redisTemplate.opsForValue().get("MARIABLE"+fid);
+        if(str!=null&&!str.equals("")){
+            System.out.println("从缓存中获取材料");
+            mariables=JsonUtils.jsonToList(str,Mariable.class);
+        }else{
+            System.out.println("从数据库中获取材料");
+            mariables=foodDao.selectMaterial(fid);
+            redisTemplate.opsForValue().set("MARIABLE"+fid,JsonUtils.objectToJson(mariables));
+        }
+        return ResultVo.setOK(mariables);
     }
 
 }

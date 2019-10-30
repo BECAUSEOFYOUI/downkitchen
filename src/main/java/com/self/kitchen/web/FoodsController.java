@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,6 +66,10 @@ public class FoodsController {
     }
     @GetMapping("/api/food/redisGet")
     public String getRedis(){
-        return stringRedisTemplate.opsForValue().get("a");
+        return stringRedisTemplate.opsForValue().get("b");
+    }
+    @GetMapping("/api/food/redisDel")
+    public boolean redisDel(){
+        return stringRedisTemplate.delete("b");
     }
 }

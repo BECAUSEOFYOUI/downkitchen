@@ -7,4 +7,6 @@ import com.self.kitchen.vo.ResultVo;
 
 public interface UserService {
     ResultVo login(UserDto userDto);
+
+    ResultVo loginOut(String username);
 }
