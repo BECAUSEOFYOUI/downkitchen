@@ -31,14 +31,4 @@ public class FoodServiceImpl implements FoodService {
         }
         return ResultVo.setOK(childTypeList);
     }
-
-    @Override
-    public ResultVo clear() {
-
-        //在Redis中取出user的登录信息,先根据手机号得到user，
-        //再得到UID，通过UID获取food，再得到foodID，通过foodid获取材料清单
-        //跟获取菜篮子时流程一样，只不过现在是删除
-
-        return null;
-    }
 }
