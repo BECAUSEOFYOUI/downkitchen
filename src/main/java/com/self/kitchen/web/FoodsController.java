@@ -24,4 +24,11 @@ public class FoodsController {
         return foodService.selectFoodsType();
     }
 
+
+    @GetMapping("api/food/clear")
+    @ApiOperation(value = "菜篮子的清空",notes = "菜篮子的清空")
+    public ResultVo clear(){
+        return foodService.clear();
+    }
+
 }
