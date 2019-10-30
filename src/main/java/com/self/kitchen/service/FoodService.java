@@ -5,5 +5,10 @@ import com.self.kitchen.vo.ResultVo;
 public interface FoodService {
     ResultVo selectFoodsType();
 
-    ResultVo clear();
+    ResultVo selectFoods(Integer foodId);
+
+
+    ResultVo selectStepById(Integer id);
+
+    ResultVo selectMaterial(Integer fid);
 }

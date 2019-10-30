@@ -3,9 +3,9 @@ package com.self.kitchen.entity;
 import lombok.Data;
 
 @Data
-public class Mariable {
+public class Step {
     private Integer id;
-    private String mabname;
-    private String dosage;
+    private String img;
+    private String stepDesc;
     private int fid;
 }

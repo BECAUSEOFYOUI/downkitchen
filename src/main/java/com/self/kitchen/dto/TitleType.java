@@ -1,4 +1,4 @@
-package com.self.kitchen.dao;
+package com.self.kitchen.dto;
 
 import lombok.Data;
 

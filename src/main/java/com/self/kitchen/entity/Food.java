@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class Food {
-
-    private Integer id;
-    private String foodsName;
+    private int id;
+    private String foodName;
     private String foodImg;
-    private Integer clicknum;
-    private Integer foodTypeId;
-    private Integer collectnum;
-    private Integer uid;
+    private String grade;
+    private int clickNum;
+    private int collectNum;
+    private int times;
+    private int foodTypeId;
 
 }
