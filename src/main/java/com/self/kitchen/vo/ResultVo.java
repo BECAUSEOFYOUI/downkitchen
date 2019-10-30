@@ -22,13 +22,10 @@ public class ResultVo {
         resultVo.setData(null);
         return resultVo;
     }
-    public static ResultVo setResult(boolean flag,Object obj) {
-        if (flag) {
-           return setOK(obj);
-        } else {
-            return setERROR();
+    public static ResultVo setResult(boolean flag,Object obj){
+        if(flag){
+            ResultVo.setOK(obj);
         }
+        return ResultVo.setERROR();
     }
-
-
 }

@@ -12,4 +12,5 @@ public interface MariableDao {
     @ResultType(Mariable.class)
     public List<Mariable> selectMariableByFoodId(int foodid);
 
+
 }

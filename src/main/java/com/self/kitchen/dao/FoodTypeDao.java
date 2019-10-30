@@ -1,6 +1,5 @@
 package com.self.kitchen.dao;
 
-import com.self.kitchen.dto.TitleType;
 import com.self.kitchen.entity.FoodsType;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
