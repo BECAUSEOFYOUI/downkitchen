@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             redisTemplate.opsForValue().set("ACCOUNT"+userToken,username);
             System.out.println("username键"+"ACCOUNT"+userToken);
             redisTemplate.opsForValue().set("ACCOUNT"+userToken,username,180, TimeUnit.MINUTES);
-            return ResultVo.setOK("OK");
+            return ResultVo.setOK("登陆成功");
         }
         return ResultVo.setERROR();
     }

@@ -43,6 +43,8 @@ public class UserController {
         return resultVo;
     }
 
+    @GetMapping("/api/user/userMessage")
+    @ResponseBody
     @ApiOperation(value="用户信息展示",notes = "用户信息展示")
     @ApiImplicitParam(name = "username",value = "账户",dataType = "string")
     public ResultVo userMessage(String username){
