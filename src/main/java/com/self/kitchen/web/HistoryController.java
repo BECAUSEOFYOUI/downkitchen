@@ -24,22 +24,20 @@ public class HistoryController {
         history.setfId(food.getId());
         history.setFoodImg(food.getFoodImg());
         history.setFoodName(food.getFoodName());
-        return ResultVo.setResult(historyService.save(history),"增加了历史记录");
+        return historyService.save(history);
     }
 
     @ApiOperation(value = "展示历史记录")
     @GetMapping("/api/history/list.do")
     public ResultVo listHistory() {
-        List<History> list =historyService.list() ;
-        for(int i = 0;i < list.size();i++){
-            System.out.println("打印list集合"+list.get(i));
-        }
-        return ResultVo.setResult(true,historyService.list());
+
+        return historyService.list();
     }
 
     @ApiOperation(value = "删除历史记录")
     @DeleteMapping("/api/history/del.do")
     public ResultVo delHistory(int id) {
-        return ResultVo.setResult(historyService.removeById(id),"删除该历史记录");
+
+        return historyService.removeById(id);
     }
 }
