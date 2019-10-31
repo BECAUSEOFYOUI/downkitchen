@@ -57,4 +57,14 @@ public class VegetableServiceImpl implements VegetableService {
 
         return ResultVo.setERROR();
     }
+
+    @Override
+    public ResultVo deleteByFid(int fid) {
+        return vegetableDao.deleteByFid(fid);
+    }
+
+    @Override
+    public ResultVo deleteByUid(int uid) {
+        return vegetableDao.deleteByUid(uid);
+    }
 }

@@ -23,4 +23,20 @@ public class VegetableController {
         System.out.println(user);
         return vegetableService.selectVegetableByCaiPin(user);
     }
+
+    @GetMapping("/api/user/deleteByFid.do")
+    @ApiOperation(value="实现菜篮子按菜品id删除",notes = "实现菜篮子按菜品id删除")
+    @ResponseBody
+    public ResultVo deleteByFid(int fid) {
+        System.out.println(fid);
+        return vegetableService.deleteByFid(fid);
+    }
+
+    @GetMapping("/api/user/deleteByUid.do")
+    @ApiOperation(value="实现菜篮子按用户id删除",notes = "实现菜篮子按用户id删除")
+    @ResponseBody
+    public ResultVo deleteByUid(int uid) {
+        System.out.println(uid);
+        return vegetableService.deleteByUid(uid);
+    }
 }
