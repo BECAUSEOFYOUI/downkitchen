@@ -39,4 +39,12 @@ public class VegetableController {
         System.out.println(uid);
         return vegetableService.deleteByUid(uid);
     }
+
+    @GetMapping("/api/user/addByFid.do")
+    @ApiOperation(value="实现菜篮子按菜品id添加",notes = "实现菜篮子按菜品id添加")
+    @ResponseBody
+    public ResultVo addByFid(int fid) {
+        System.out.println(fid);
+        return vegetableService.addByFid(fid);
+    }
 }

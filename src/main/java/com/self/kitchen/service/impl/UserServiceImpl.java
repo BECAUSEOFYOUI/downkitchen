@@ -125,7 +125,6 @@ public class UserServiceImpl implements UserService {
     public User selectUserByUsername(String username) {
 
         return userDao.selectUserByUsername(username);
-
     }
 
     @Override

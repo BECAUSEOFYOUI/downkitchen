@@ -9,4 +9,6 @@ public interface VegetableService {
     ResultVo deleteByFid(int fid);
 
     ResultVo deleteByUid(int uid);
+
+    ResultVo addByFid(int fid);
 }

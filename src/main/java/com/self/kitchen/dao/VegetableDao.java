@@ -14,9 +14,13 @@ public interface VegetableDao {
 
     @Select("delete from cai_lan_zi where fid=#{fid}")
     @ResultType(Integer.class)
-    ResultVo deleteByFid(int fid);
+    int deleteByFid(int fid);
 
     @Select("delete from cai_lan_zi where uid=#{uid}")
     @ResultType(Integer.class)
-    ResultVo deleteByUid(int uid);
+    int deleteByUid(int uid);
+
+    @Select("insert into cai_lan_zi(fid) values(#{fid}))")
+    @ResultType(Integer.class)
+    int addByFid(int fid);
 }
