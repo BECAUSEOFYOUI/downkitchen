@@ -3,6 +3,7 @@ package com.self.kitchen.dao;
 import com.self.kitchen.dto.FoodDto;
 
 
+import com.self.kitchen.entity.Food;
 import com.self.kitchen.entity.Mariable;
 import com.self.kitchen.entity.Step;
 import org.apache.ibatis.annotations.*;
@@ -34,6 +35,10 @@ public interface FoodDao {
 
     @Select("select * from mariable where fid=#{fid}")
     List<Mariable> selectMaterial(Integer fid);
+
+    @Select("select * from food where fid=#{fid}")
+    @ResultType(Food.class)
+    Food selectFoodByFid(Integer fids);
 
     @Select("select f.*,u.username from food f,user u where foodTypeId=#{id} and f.uid=u.id")
     @ResultMap("foodDtoMap")

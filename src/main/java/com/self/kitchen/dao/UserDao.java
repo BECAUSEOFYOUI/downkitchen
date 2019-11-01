@@ -6,8 +6,8 @@ import com.self.kitchen.dto.UserDto;
 
 import com.self.kitchen.dto.UserMesDto;
 
+import com.self.kitchen.entity.Food;
 import com.self.kitchen.entity.User;
-
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

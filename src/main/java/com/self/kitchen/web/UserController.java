@@ -1,8 +1,7 @@
 package com.self.kitchen.web;
 
 import com.self.kitchen.dto.UserDto;
-import com.self.kitchen.dto.UserMesDto;
-
+import com.self.kitchen.entity.User;
 import com.self.kitchen.service.UserService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.*;
