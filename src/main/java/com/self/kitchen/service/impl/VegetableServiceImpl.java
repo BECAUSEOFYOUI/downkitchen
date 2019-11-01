@@ -1,18 +1,24 @@
 package com.self.kitchen.service.impl;
 
+import com.self.kitchen.dao.CollectDao;
 import com.self.kitchen.dao.FoodDao;
 import com.self.kitchen.dao.MariableDao;
 import com.self.kitchen.dao.VegetableDao;
-import com.self.kitchen.entity.Food;
-import com.self.kitchen.entity.Mariable;
-import com.self.kitchen.entity.User;
-import com.self.kitchen.entity.Vegetable;
+
+import com.self.kitchen.dto.FoodDto;
+import com.self.kitchen.dto.VegetableDto;
+import com.self.kitchen.entity.*;
 import com.self.kitchen.service.VegetableService;
 import com.self.kitchen.vo.ResultVo;
+import org.apache.ibatis.annotations.ResultType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import javax.annotation.Resource;
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,45 +32,67 @@ public class VegetableServiceImpl implements VegetableService {
 
     @Autowired
     VegetableDao vegetableDao;
+    @Autowired
+    private CollectDao collectDao;
+    @Resource
+
+    private RedisTemplate<String,String> redisTemplate;
 
     @Override
-    public ResultVo selectVegetableByCaiPin(User user) {
+    public ResultVo selectVegetable(String USERTOKEN) {
 
-        Integer uid = user.getId();
-        Vegetable vegetable = vegetableDao.selectByUid(uid);
+        if(USERTOKEN!=null&&!USERTOKEN.equals("")){
+            /*System.out.println(USERTOKEN);*/
+            String userToken = redisTemplate.opsForValue().get(USERTOKEN);
+            /*System.out.println("Vegetable"+userToken);*/
+            String username =redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            /*System.out.println(username);*/
+            int uid = collectDao.selectUserId(username);
+          /*  System.out.println(""+uid);*/
+            Vegetable vegeTable = vegetableDao.selectByUid(uid);
+            int cid =vegeTable.getId();
+            /*System.out.println("cid"+cid);*/
+            List<VegetableDto> vegetableDtos=new ArrayList<>();
+            List<Integer> foodsId = vegetableDao.selectFoodId(cid);
 
-        if(vegetable != null) {
-            Integer[] fids = vegetable.getFid();
-            System.out.println(fids);
-
-            List<Mariable> mariables = null;
-            List<String> list = null;
-            HashMap<List<String>, List<Mariable>> map = new HashMap<>();
-
-            for(Integer fid:fids) {
-                Food food = foodDao.selectFoodByFid(fid);//获取食物
-                String foodName = food.getFoodName();
-                String foodImg = food.getFoodImg();
-                list.add(foodName);
-                list.add(foodImg);
-
-                mariables = mariableDao.selectMariableByFoodId(fid);
-                map.put(list, mariables);
+            for(int i=0;i<foodsId.size();i++){
+                VegetableDto vegetableDto=new VegetableDto();
+                Integer fid = foodsId.get(i);
+                /*System.out.println("fid"+fid);*/
+                FoodDto foods = foodDao.selectFoods(fid);
+                System.out.println("img"+foods.getFoodName());
+                vegetableDto.setFoodImg(foods.getFoodImg());
+                vegetableDto.setFoodName(foods.getFoodName());
+                List<Mariable> mariables = foodDao.selectMaterial(fid);
+               /* System.out.println(mariables);*/
+                vegetableDto.setMariables(mariables);
+                vegetableDtos.add(vegetableDto);
+                /*System.out.println(1);
+                System.out.println(vegetableDtos);*/
             }
-
-            return ResultVo.setOK(map);
+            return ResultVo.setOK(vegetableDtos);
+        }else{
+            return ResultVo.setERROR("请先登录");
         }
-
-        return ResultVo.setERROR();
     }
 
     @Override
-    public ResultVo deleteByFid(int fid) {
-        int result = vegetableDao.deleteByFid(fid);
-        if(result > 0) {
-            return ResultVo.setOK("OK");
+    public ResultVo deleteByFid(int fid,String USERTOKEN) {
+
+        if(USERTOKEN!=null&&!USERTOKEN.equals("")){
+            String userToken = redisTemplate.opsForValue().get(USERTOKEN);
+
+            String username = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            Integer uid = collectDao.selectUserId(username);
+
+
+            int result = vegetableDao.deleteByFid(fid,uid);
+        }else{
+            return ResultVo.setERROR("请先登录");
         }
+
         return ResultVo.setERROR();
+
     }
 
     @Override

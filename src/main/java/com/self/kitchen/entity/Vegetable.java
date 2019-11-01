@@ -6,6 +6,6 @@ import lombok.Data;
 public class Vegetable {
 
     private int id;
-    private Integer[] fid;
+    private Integer fid;
     private int uid;
 }

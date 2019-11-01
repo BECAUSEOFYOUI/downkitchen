@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
                 USERTOKEN=UUIDUtils.getUUID();
                 USERTOKEN = USERTOKEN.substring(0,11);
                 r = userDao.selectUserToken(USERTOKEN);
+                System.out.println("r2="+r);
             }
             User user = new User();
             user.setUsertoken(USERTOKEN);
@@ -86,9 +87,9 @@ public class UserServiceImpl implements UserService {
     public ResultVo userMessage(String USERTOKEN) {
         String userToken = redisTemplate.opsForValue().get(USERTOKEN);
         if(redisTemplate.hasKey("ACCOUNT" + userToken)){
-            String account = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            String username = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
 
-            UserMesDto user = userDao.userMessage(account);
+            UserMesDto user = userDao.userMessage(username);
             return ResultVo.setOK(user);
         }else{
             return ResultVo.setERROR("请先登陆");

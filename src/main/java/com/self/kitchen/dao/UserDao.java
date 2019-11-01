@@ -6,7 +6,7 @@ import com.self.kitchen.dto.UserDto;
 
 import com.self.kitchen.dto.UserMesDto;
 
-import com.self.kitchen.entity.Food;
+
 import com.self.kitchen.entity.User;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
@@ -17,15 +17,15 @@ public interface UserDao {
     @ResultType(Integer.class)
     int login(UserDto userDto);
 
-    @Select("select * from user where username=#{account}")
+    @Select("select * from user where username=#{username}")
     /*@ResultType(UserMesDto.class)*/
-    UserMesDto userMessage(String account);
+    UserMesDto userMessage(String username);
 
     @Update("update user set nickname=#{nickname},sex=#{sex},headImg=#{headImg} where username=#{username}")
     @ResultType(Integer.class)
     int updateUserMessage(UserMesDto userMesDto);
 
-    @Select("select count(1) from user where userToken")
+    @Select("select count(1) from user where userToken=#{usertoken}")
     int selectUserToken(String usertoken);
     @Update("update user set usertoken=#{usertoken} where username=#{username}")
     @ResultType(Integer.class)

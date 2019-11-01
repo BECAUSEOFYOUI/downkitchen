@@ -34,6 +34,7 @@ public interface FoodDao {
     List<Step> selectStepByFId(@Param("id") Integer id);
 
     @Select("select * from mariable where fid=#{fid}")
+    @ResultType(Mariable.class)
     List<Mariable> selectMaterial(Integer fid);
 
     @Select("select * from food where fid=#{fid}")

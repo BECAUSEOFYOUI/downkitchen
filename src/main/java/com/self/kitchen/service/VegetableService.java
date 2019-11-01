@@ -4,9 +4,9 @@ import com.self.kitchen.entity.User;
 import com.self.kitchen.vo.ResultVo;
 
 public interface VegetableService {
-    ResultVo selectVegetableByCaiPin(User user);
+    ResultVo selectVegetable(String USERTOKEN);
 
-    ResultVo deleteByFid(int fid);
+    ResultVo deleteByFid(int fid,String USERTOKEN);
 
     ResultVo deleteByUid(int uid);
 

@@ -5,9 +5,7 @@ import com.self.kitchen.utils.UUIDUtils;
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,7 +15,7 @@ import java.io.File;
 public class UploadController {
 
 
-    @RequestMapping("/api/img/upload")
+    @PostMapping("/api/img/upload")
     @ResponseBody
     @ApiOperation(value = "文件上传",notes = "文件上传")
     public String uploadFile(MultipartFile headImg){

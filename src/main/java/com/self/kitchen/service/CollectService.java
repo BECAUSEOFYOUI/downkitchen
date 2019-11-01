@@ -9,10 +9,9 @@ import java.util.List;
 public interface CollectService{
 
 
-    ResultVo save(Collect collect);
+    ResultVo listCollect(String USERTOKEN);
 
+    ResultVo removeById(int id,String USERTOKEN);
 
-    ResultVo list();
-
-    ResultVo removeById(int id);
+    ResultVo collectFood(Integer id, String userToken);
 }

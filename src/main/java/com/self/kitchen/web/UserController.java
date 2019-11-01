@@ -1,7 +1,8 @@
 package com.self.kitchen.web;
 
 import com.self.kitchen.dto.UserDto;
-import com.self.kitchen.entity.User;
+import com.self.kitchen.dto.UserMesDto;
+
 import com.self.kitchen.service.UserService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.*;
@@ -31,9 +32,9 @@ public class UserController {
     @ResponseBody
     @DeleteMapping("/api/user/loginOut")
     @ApiOperation(value = "用户退出",notes = "用户退出")
-    @ApiImplicitParam(name = "username",value = "账户",required = true,dataType = "string")
-    public ResultVo loginOut(String username){
-        ResultVo resultVo = userService.loginOut(username);
+    @ApiImplicitParam(name = "USERTOKEN",value = "私密令牌",required = true,dataType = "string")
+    public ResultVo loginOut(String USERTOKEN){
+        ResultVo resultVo = userService.loginOut(USERTOKEN);
         System.out.println(resultVo.getData());
         return resultVo;
     }
@@ -41,9 +42,9 @@ public class UserController {
     @GetMapping("/api/user/userMessage")
     @ResponseBody
     @ApiOperation(value="用户信息展示",notes = "用户信息展示")
-    @ApiImplicitParam(name = "username",value = "账户",dataType = "string",required = true)
-    public ResultVo userMessage(String username){
-        return userService.userMessage(username);
+    @ApiImplicitParam(name = "USERTOKEN",value = "私密令牌",dataType = "string",required = true)
+    public ResultVo userMessage(String USERTOKEN){
+        return userService.userMessage(USERTOKEN);
     }
 
 
@@ -51,9 +52,10 @@ public class UserController {
     @PutMapping("/api/user/updateMessage")
     @ResponseBody
     @ApiOperation(value ="用户信息修改",notes = "用户信息修改")
-    public ResultVo updateUserMessage(UserMesDto userMesDto, String username){
+    @ApiImplicitParam(name = "USERTOKEN",value = "私密令牌",dataType = "string",required = true)
+    public ResultVo updateUserMessage(UserMesDto userMesDto, String USERTOKEN){
 
-        return userService.updateUserMessage(userMesDto,username);
+        return userService.updateUserMessage(userMesDto,USERTOKEN);
     }
 
 
