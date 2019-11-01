@@ -29,6 +29,13 @@ public class ResultVo {
             return setERROR();
         }
     }
+    public static ResultVo setERROR(Object obj){
+        ResultVo resultVo = new ResultVo();
+        resultVo.setData(obj);
+        resultVo.setMsg("ERROR");
+        resultVo.setCode(400);
+        return resultVo;
+    }
 
 
 }

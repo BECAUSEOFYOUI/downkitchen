@@ -17,9 +17,9 @@ public interface FoodDao {
                 @Result(column = "food_name",property = "foodName"),
                 @Result(column = "food_img",property = "foodImg"),
                 @Result(column = "clicknum",property = "clickNum"),
-                @Result(column = "times",property = "times"),
                 @Result(column = "collectnum",property = "collectNum"),
                 @Result(column = "username",property = "username"),
+                @Result(column = "fooddetail",property = "foodDetail"),
 
     })
     @ResultType(FoodDto.class)
@@ -34,4 +34,9 @@ public interface FoodDao {
 
     @Select("select * from mariable where fid=#{fid}")
     List<Mariable> selectMaterial(Integer fid);
+
+    @Select("select f.*,u.username from food f,user u where foodTypeId=#{id} and f.uid=u.id")
+    @ResultMap("foodDtoMap")
+    @ResultType(FoodDto.class)
+    List<FoodDto> selectAllFoods(Integer id);
 }

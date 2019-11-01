@@ -10,7 +10,7 @@ public class FoodDto implements Serializable {
     private String foodName;
     private String foodImg;
     private int clickNum;
-    private int times;
+    private String foodDetail;
     private int collectNum;
     private Integer uid;
     private String username;
