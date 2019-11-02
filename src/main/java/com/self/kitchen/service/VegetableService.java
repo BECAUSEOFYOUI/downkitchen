@@ -8,7 +8,7 @@ public interface VegetableService {
 
     ResultVo deleteByFid(int fid,String USERTOKEN);
 
-    ResultVo deleteByUid(int uid);
+    ResultVo deleteByUid(String USERTOKEN);
 
-    ResultVo addByFid(int fid);
+    ResultVo addByFid(int fid,String USERTOKEN);
 }

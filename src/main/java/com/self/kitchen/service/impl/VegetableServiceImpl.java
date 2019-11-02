@@ -56,13 +56,16 @@ public class VegetableServiceImpl implements VegetableService {
             List<Integer> foodsId = vegetableDao.selectFoodId(cid);
 
             for(int i=0;i<foodsId.size();i++){
+
                 VegetableDto vegetableDto=new VegetableDto();
+                vegetableDto.setId(cid);
                 Integer fid = foodsId.get(i);
                 /*System.out.println("fid"+fid);*/
                 FoodDto foods = foodDao.selectFoods(fid);
                 System.out.println("img"+foods.getFoodName());
                 vegetableDto.setFoodImg(foods.getFoodImg());
                 vegetableDto.setFoodName(foods.getFoodName());
+                vegetableDto.setFid(fid);
                 List<Mariable> mariables = foodDao.selectMaterial(fid);
                /* System.out.println(mariables);*/
                 vegetableDto.setMariables(mariables);
@@ -81,35 +84,79 @@ public class VegetableServiceImpl implements VegetableService {
 
         if(USERTOKEN!=null&&!USERTOKEN.equals("")){
             String userToken = redisTemplate.opsForValue().get(USERTOKEN);
-
+            System.out.println("delete"+USERTOKEN);
             String username = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            System.out.println("delete"+username);
             Integer uid = collectDao.selectUserId(username);
-
-
-            int result = vegetableDao.deleteByFid(fid,uid);
+            System.out.println(uid);
+            int id = vegetableDao.selectCidByUid(uid);
+            System.out.println("id"+id+"fid"+fid);
+            int result = vegetableDao.deleteByFid(id,fid);
+            System.out.println("result"+result);
+            if(result==1){
+                return ResultVo.setOK("删除成功");
+            }else{
+                return ResultVo.setERROR("删除失败");
+            }
         }else{
             return ResultVo.setERROR("请先登录");
         }
 
-        return ResultVo.setERROR();
+    }
+    @Override
+    public ResultVo deleteByUid(String USERTOKEN) {
 
+        if(USERTOKEN!=null&&!USERTOKEN.equals("")){
+            String userToken = redisTemplate.opsForValue().get(USERTOKEN);
+
+            String username = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            Integer uid = collectDao.selectUserId(username);
+
+            int id = vegetableDao.selectCidByUid(uid);
+            int r = vegetableDao.deleteByUid(id);
+            if(r==1){
+                return ResultVo.setOK("删除成功");
+            }else{
+                return ResultVo.setERROR("删除失败");
+            }
+        }else{
+            return ResultVo.setERROR("请先登录");
+        }
     }
 
     @Override
-    public ResultVo deleteByUid(int uid) {
-        int result = vegetableDao.deleteByUid(uid);
-        if(result > 0) {
-            return ResultVo.setOK("OK");
-        }
-        return ResultVo.setERROR();
-    }
+    public ResultVo addByFid(int fid,String USERTOKEN) {
 
-    @Override
-    public ResultVo addByFid(int fid) {
-        int result = vegetableDao.addByFid(fid);
-        if(result > 0) {
-            return ResultVo.setOK("OK");
+        if(USERTOKEN!=null&&!USERTOKEN.equals("")){
+            String userToken = redisTemplate.opsForValue().get(USERTOKEN);
+
+            String username = redisTemplate.opsForValue().get("ACCOUNT"+userToken);
+            Integer uid = collectDao.selectUserId(username);
+            System.out.println("uid"+uid);
+            int r = vegetableDao.selectCotantUid(uid);
+            System.out.println("r"+r);
+            int r1=0;
+            int r2=0;
+            if(r==1){
+                int cid = vegetableDao.selectCidByUid(uid);
+                r2 = vegetableDao.insertCF(cid,fid);
+                r1=1;
+            }else{
+                r1 = vegetableDao.insertCaiLan(uid);
+                int cid = vegetableDao.selectCidByUid(uid);
+                r2 = vegetableDao.insertCF(cid,fid);
+            }
+
+            System.out.println("r1"+r1+"r2"+r2);
+            if(r1==r2){
+                return ResultVo.setOK("添加菜篮子成功");
+            }else{
+                return ResultVo.setERROR("添加菜篮子失败");
+            }
+
+        }else{
+            return ResultVo.setERROR("请先登录");
         }
-        return ResultVo.setERROR();
+
     }
 }

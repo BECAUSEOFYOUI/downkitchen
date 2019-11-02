@@ -4,10 +4,12 @@ package com.self.kitchen.web;
 import com.self.kitchen.service.VegetableService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,9 +28,13 @@ public class VegetableController {
         return vegetableService.selectVegetable(USERTOKEN);
     }
 
-    @GetMapping("/api/user/deleteByFid.do")
+    @DeleteMapping("/api/user/deleteByFid.do")
     @ApiOperation(value="实现菜篮子按菜品id删除",notes = "实现菜篮子按菜品id删除")
-    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fid",value = "食物的id",required = true,dataType = "int"),
+            @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
+    })
+
     public ResultVo deleteByFid(int fid,String USERTOKEN) {
         System.out.println(fid);
         return vegetableService.deleteByFid(fid,USERTOKEN);
@@ -36,17 +42,20 @@ public class VegetableController {
 
     @GetMapping("/api/user/deleteByUid.do")
     @ApiOperation(value="实现菜篮子按用户id删除",notes = "实现菜篮子按用户id删除")
-    @ResponseBody
-    public ResultVo deleteByUid(int uid,String USERTOKEN) {
-        System.out.println(uid);
-        return vegetableService.deleteByUid(uid);
+    @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
+    public ResultVo deleteByUid(String USERTOKEN) {
+
+        return vegetableService.deleteByUid(USERTOKEN);
     }
 
     @GetMapping("/api/user/addByFid.do")
     @ApiOperation(value="实现菜篮子按菜品id添加",notes = "实现菜篮子按菜品id添加")
-    @ResponseBody
-    public ResultVo addByFid(int fid) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fid",value = "食物的id",required = true,dataType = "int"),
+            @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
+    })
+    public ResultVo addByFid(int fid,String USERTOKEN) {
         System.out.println(fid);
-        return vegetableService.addByFid(fid);
+        return vegetableService.addByFid(fid,USERTOKEN);
     }
 }
