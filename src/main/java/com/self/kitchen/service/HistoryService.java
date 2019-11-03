@@ -1,7 +1,13 @@
 package com.self.kitchen.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.self.kitchen.entity.History;
 
-public interface HistoryService extends IService<History> {
+import com.self.kitchen.entity.History;
+import com.self.kitchen.vo.ResultVo;
+
+public interface HistoryService{
+    ResultVo save(Integer id, String userToken);
+
+    ResultVo list(String USERTOKEN);
+
+    ResultVo removeById(int id,String USERTOKEN);
 }

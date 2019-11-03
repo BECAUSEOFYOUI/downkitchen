@@ -10,7 +10,7 @@ public class Food {
     private String grade;
     private int clickNum;
     private int collectNum;
-    private int times;
+    private String fooddetail;
     private int foodTypeId;
 
 }

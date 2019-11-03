@@ -5,10 +5,14 @@ import com.self.kitchen.entity.History;
 import com.self.kitchen.service.HistoryService;
 import com.self.kitchen.vo.ResultVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -16,30 +20,38 @@ import java.util.List;
 public class HistoryController {
     @Autowired
     HistoryService historyService;
+    @Resource
+    private RedisTemplate<String,String> redisTemplate;
+
 
     @ApiOperation(value = "点菜谱时会加入历史记录里")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "历史记录的食物id",required = true,dataType="int"),
+            @ApiImplicitParam(name="USERTOKEN",value = "用户令牌",required = true,dataType = "string"),
+    }
+    )
     @PostMapping("/api/history/addHistory.do")
-    public ResultVo addHistory(@RequestBody Food food) {
-        History history = new History();
-        history.setfId(food.getId());
-        history.setFoodImg(food.getFoodImg());
-        history.setFoodName(food.getFoodName());
-        return ResultVo.setResult(historyService.save(history),"增加了历史记录");
+    public ResultVo addHistory(Integer id,String USERTOKEN) {
+
+        return historyService.save(id,USERTOKEN);
     }
 
     @ApiOperation(value = "展示历史记录")
     @GetMapping("/api/history/list.do")
-    public ResultVo listHistory() {
-        List<History> list =historyService.list() ;
-        for(int i = 0;i < list.size();i++){
-            System.out.println("打印list集合"+list.get(i));
-        }
-        return ResultVo.setResult(true,historyService.list());
+    @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
+    public ResultVo listHistory(String USERTOKEN) {
+
+        return historyService.list(USERTOKEN);
     }
 
     @ApiOperation(value = "删除历史记录")
     @DeleteMapping("/api/history/del.do")
-    public ResultVo delHistory(int id) {
-        return ResultVo.setResult(historyService.removeById(id),"删除该历史记录");
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "对应历史记录表的id",required = true,dataType = "int"),
+            @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
+    })
+    public ResultVo delHistory(int id,String USERTOKEN) {
+
+        return historyService.removeById(id,USERTOKEN);
     }
 }

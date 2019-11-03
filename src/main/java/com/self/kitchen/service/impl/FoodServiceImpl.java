@@ -29,6 +29,7 @@ import javax.annotation.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class FoodServiceImpl implements FoodService {
@@ -50,7 +51,7 @@ public class FoodServiceImpl implements FoodService {
         }else{
             System.out.println("从数据库中获取foodsTitle");
             foodsTitle=foodTypeDao.selectFoodsTitle();
-            redisTemplate.opsForValue().set("TITLETYPE",JsonUtils.objectToJson(foodsTitle));
+            redisTemplate.opsForValue().set("TITLETYPE",JsonUtils.objectToJson(foodsTitle),240,TimeUnit.HOURS);
         }
 
         List<ChildType> childTypeList = new ArrayList<>();
@@ -67,7 +68,7 @@ public class FoodServiceImpl implements FoodService {
             }else{
                 System.out.println("从数据库中获取FoodsType");
                 foodsType = foodTypeDao.selectFoodsType(t.getId());
-                redisTemplate.opsForValue().set("FOODSTYPE",JsonUtils.objectToJson(foodsType));
+                redisTemplate.opsForValue().set("FOODSTYPE",JsonUtils.objectToJson(foodsType),240,TimeUnit.HOURS);
             }
 
             childType.setChildTypes(foodsType);
@@ -82,15 +83,21 @@ public class FoodServiceImpl implements FoodService {
     public ResultVo selectFoods(Integer foodId) {
         FoodDto foodDto=null;
         String jsonStr = redisTemplate.opsForValue().get("FOOD2"+foodId);
-        if(jsonStr==null){
-            System.out.println("从数据库中获取Foods");
-            foodDto=foodDao.selectFoods(foodId);
-            redisTemplate.opsForValue().set("FOOD2"+foodId, JsonUtils.objectToJson(foodDto));
-        }else{
+        if(jsonStr!=null&&!jsonStr.equals("")){
             System.out.println("从缓存中获取foods");
             foodDto = JsonUtils.jsonToPojo(jsonStr,FoodDto.class);
-        }
 
+        }else{
+
+            System.out.println("从数据库中获取Foods");
+            foodDto=foodDao.selectFoods(foodId);
+            redisTemplate.opsForValue().set("FOOD2"+foodId, JsonUtils.objectToJson(foodDto),240, TimeUnit.HOURS);
+
+            redisTemplate.opsForValue().set("CLICKNUM"+foodId,foodDto.getClickNum()+"",240,TimeUnit.HOURS);
+            redisTemplate.opsForValue().set("COLLECTION"+foodId,foodDto.getCollectNum()+"",240,TimeUnit.HOURS);
+        }
+        foodDto.setClickNum(Integer.valueOf(redisTemplate.opsForValue().get("CLICKNUM"+foodId)));
+        foodDto.setCollectNum(Integer.valueOf(redisTemplate.opsForValue().get("COLLECTION"+foodId)));
         return ResultVo.setOK(foodDto);
     }
 
@@ -105,6 +112,7 @@ public class FoodServiceImpl implements FoodService {
             System.out.println("从数据库中获取Step");
             steps = foodDao.selectStepByFId(id);
             redisTemplate.opsForValue().set("STEPS"+id,JsonUtils.objectToJson(steps));
+
         }
 
         return ResultVo.setOK(steps);
@@ -123,6 +131,12 @@ public class FoodServiceImpl implements FoodService {
             redisTemplate.opsForValue().set("MARIABLE"+fid,JsonUtils.objectToJson(mariables));
         }
         return ResultVo.setOK(mariables);
+    }
+
+    @Override
+    public ResultVo selectAllFoodsByTypeFoodId(Integer id) {
+        List<FoodDto> foodDtos = foodDao.selectAllFoods(id);
+        return ResultVo.setOK(foodDtos);
     }
 
 }

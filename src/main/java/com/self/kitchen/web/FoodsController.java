@@ -29,12 +29,19 @@ public class FoodsController {
         return ResultVo.setResult(true,foodService.selectFoods(titleTypeId,typeNameId));
     }*/
 
-    @GetMapping("api/food/selectFoodsType")
+    @GetMapping("/api/food/selectFoodsType")
     @ApiOperation(value = "食物的分类展示",notes = "食物的分类展示")
     public ResultVo selectFoodTitle(){
         return foodService.selectFoodsType();
     }
 
+
+    @GetMapping("/api/food/selectAllFoodsByTypeFoodId")
+    @ApiOperation(value = "根据食物类型查询对应的食物ID查询所有食物",notes = "根据食物类型查询对应的食物ID查询所有食物")
+    @ApiImplicitParam(name = "id",value = "食物类型id",required = true,dataType = "int")
+    public ResultVo selectAllFoodsByTypeFoodId(Integer id){
+        return foodService.selectAllFoodsByTypeFoodId(id);
+    }
 
     @GetMapping("/api/food/selectFoods")
     @ApiOperation(value = "查询食物的信息",notes = "查询食物的信息")

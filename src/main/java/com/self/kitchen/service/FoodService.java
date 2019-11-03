@@ -11,4 +11,6 @@ public interface FoodService {
     ResultVo selectStepById(Integer id);
 
     ResultVo selectMaterial(Integer fid);
+
+    ResultVo selectAllFoodsByTypeFoodId(Integer id);
 }

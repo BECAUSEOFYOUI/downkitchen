@@ -3,6 +3,7 @@ package com.self.kitchen.dao;
 import com.self.kitchen.dto.FoodDto;
 
 
+import com.self.kitchen.entity.Food;
 import com.self.kitchen.entity.Mariable;
 import com.self.kitchen.entity.Step;
 import org.apache.ibatis.annotations.*;
@@ -17,9 +18,9 @@ public interface FoodDao {
                 @Result(column = "food_name",property = "foodName"),
                 @Result(column = "food_img",property = "foodImg"),
                 @Result(column = "clicknum",property = "clickNum"),
-                @Result(column = "times",property = "times"),
                 @Result(column = "collectnum",property = "collectNum"),
                 @Result(column = "username",property = "username"),
+                @Result(column = "fooddetail",property = "foodDetail"),
 
     })
     @ResultType(FoodDto.class)
@@ -33,5 +34,15 @@ public interface FoodDao {
     List<Step> selectStepByFId(@Param("id") Integer id);
 
     @Select("select * from mariable where fid=#{fid}")
+    @ResultType(Mariable.class)
     List<Mariable> selectMaterial(Integer fid);
+
+    @Select("select * from food where fid=#{fid}")
+    @ResultType(Food.class)
+    Food selectFoodByFid(Integer fids);
+
+    @Select("select f.*,u.username from food f,user u where foodTypeId=#{id} and f.uid=u.id")
+    @ResultMap("foodDtoMap")
+    @ResultType(FoodDto.class)
+    List<FoodDto> selectAllFoods(Integer id);
 }

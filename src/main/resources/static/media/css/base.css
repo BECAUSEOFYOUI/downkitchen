@@ -1,0 +1,84 @@
+/* -----公用样式表----- */
+body,ul,dl,dt,dd,p,ol,h1,h2,h3,h4,h5,h6,form,img,table,fieldset,legend,hr,input,nav,menu,figure,figcaption{margin:0; padding:0;}
+ul,li,ol{list-style:none;}
+img,fieldset{border:0; }
+img{display:block;}
+a{text-decoration:none; color:#333;}
+h1,h2,h3,h4,h5,h6{font-weight:100;}
+body{ font-family:"微软雅黑";}
+input,a{outline:none;}
+figure{margin: 0;}
+
+html,body{height: 100%;}
+
+.container{
+	max-width: 7.68rem;
+	margin: 0 auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+/* -----头部----- */
+header{
+	flex: 0 0 1.28rem;
+	box-sizing: border-box;
+	background: #F38C00;
+	position: relative;
+}
+
+
+/* -----内容----- */
+.content{
+	flex: 1;
+	overflow: auto;
+}
+.content::-webkit-scrollbar{
+    display: none;
+}
+
+
+/* -----页脚----- */
+footer{
+	flex: 0 0 1.02rem;
+	border-top: 0.02rem solid #eee;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.footer_list{
+	display: flex;
+	justify-content: space-around;
+}
+.footer_list li{
+	width: 0.72rem;
+	text-align: center;
+	margin-top: 0.12rem;
+}
+.footer_list li a i{
+	font-size: 0.38rem;
+}
+.footer_list li a p{
+	font-size: 0.24rem;
+	line-height: 0.48rem;
+}
+
+
+
+
+/* bigbox */
+.bigbox{
+	max-width: 750px;
+	height: 100%;
+	margin: 0 auto;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+}
+
+/* main */
+.main{
+	flex: 1;
+	overflow: auto;
+}
+
+
