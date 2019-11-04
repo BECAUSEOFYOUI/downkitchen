@@ -5,9 +5,9 @@ import com.self.kitchen.entity.History;
 import com.self.kitchen.vo.ResultVo;
 
 public interface HistoryService{
-    ResultVo save(History history);
+    ResultVo save(Integer id, String userToken);
 
-    ResultVo list();
+    ResultVo list(String USERTOKEN);
 
-    ResultVo removeById(int id);
+    ResultVo removeById(int id,String USERTOKEN);
 }

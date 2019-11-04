@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>我的收藏</title>
+		<link rel="stylesheet" href="../css/base.css">
+		<link rel="stylesheet" href="../css/master.css">
+		<link rel="stylesheet" href="../fonts/iconfont.css">
+		<script src="../js/rem.js"></script>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			window.onload = function() {
+				let backs = document.querySelector('.sc_header i')
+				backs.onclick = function() {
+					history.back()
+				}
+			}
+		</script>
+		<div class="container">
+			<header id="sc_header" class="sc_header">
+				<i class="iconfont">&#xe628;</i>
+				<h2>收藏</h2>
+
+			</header>
+
+			<div class="content sc_content">
+				<ul id="div1">
+					<li  v-for="list in list.data" >
+						<div class="sc_wenzhang">
+
+							<div class="sc_bg">
+								<img src="" alt="" >
+							</div>
+
+							<p class="sc_txt" >{{list.name}}</p>
+
+							<div class="sc_date">
+								<p>阅读<span class="sc_num">1840</span></p>
+								<span class="sc_mon">删除</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				
+
+			</div>
+
+			<footer class="h_footer">
+				<ul class="footer_list">
+					<li>
+						<a href="">
+							<i class="iconfont">&#xe605;</i>
+							<p>首页</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="">
+							<i class="iconfont">&#xe671;</i>
+							<p>分类</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="iconfont">&#xe603;</i>
+							<p>收藏</p>
+						</a>
+					</li>
+
+					<li>
+						<a href="">
+							<i class="iconfont">&#xe619;</i>
+							<p>故事</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="iconfont">&#xe619;</i>
+							<p>更多</p>
+						</a>
+					</li>
+				</ul>
+			</footer>
+		</div>
+
+	</body>
+
+</html>
