@@ -28,17 +28,18 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(webSecurityManager);
         //3、设置常用的3个URL页面
         //设置登陆页面
-        factoryBean.setLoginUrl("index.html");
+        factoryBean.setLoginUrl("shouye1.html");
         //设置登陆成功之后跳转的页面
-        factoryBean.setSuccessUrl("index.html");
+        factoryBean.setSuccessUrl("shouye1.html");
         //设置未授权页面
         factoryBean.setUnauthorizedUrl("error.html");
         //4.设置拦截规则 anon:匿名访问放行 谁都可以使用 authc:认证访问 必须登陆才可以使用
         Map<String,String> map = new HashMap<>();
         map.put("/login.html","anon");
+        map.put("/shouye1","anon");
         map.put("/api/user/login.do","anon");
         //静态资源放行
-        map.put("/static/media/**","anon");
+        map.put("/static/**","anon");
         map.put("/swagger-ui.html","anon");
         map.put("/swagger-resources/**","anon");
         /*map.put("/v2/**","anon");

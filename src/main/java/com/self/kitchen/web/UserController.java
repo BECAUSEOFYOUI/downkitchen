@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@CrossOrigin
 @Api(value ="实现用户的各种操作",tags = "实现用户的各种操作")
 public class UserController {
     @Autowired
     UserService userService;
-    @PostMapping("/api/user/login.do")
+    @PostMapping("/api/user/login")
     @ApiOperation(value="实现用户的登陆",notes = "实现用户的登陆")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "string"),
@@ -82,4 +83,15 @@ public class UserController {
         return userService.register(username, password);
     }
 */
+    @PutMapping("/api/user/updatePwd")
+    @ApiOperation(value = "修改用户密码",notes = "修改用户密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "USERTOKNE",value = "用户秘钥",type = "string",required = true),
+            @ApiImplicitParam(name = "password",value = "用户修改的密码",type = "string",required = true),
+    })
+
+    public ResultVo updatePwd(String USERTOKEN,String password){
+        return userService.updatePwd(USERTOKEN,password);
+    }
+
 }

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的收藏</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<style type="text/css">
+		
+		.sc_date{
+			color: #a0a0a0;
+			font-size: 0.24rem;
+			line-height: 0.68rem;
+			padding: 0;
+			text-align: center;
+			margin: 0;
+		}
+		.sc_date img {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			 display: inline-block;
+    		vertical-align: middle;
+		}
+		
+		/*表格样式*/
+		table.imagetable {
+		width: 100%;
+		font-family: verdana,arial,sans-serif;
+		font-size:11px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #999999;
+		border-collapse: collapse;
+		}
+		table.imagetable th {
+		background:#b5cfd2 url('cell-blue.jpg');
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #999999;
+		}
+		table.imagetable td {
+		background:#dcddc0 url('cell-grey.jpg');
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #999999;
+		}
+		
+		.div3{
+			margin-top: 40px;
+			text-align: center;
+		}
+		.div32{
+			width: 100%;
+		}
+		.div32{
+			margin-top: 10px;
+		}
+		.div32 img{
+			width: 80%;
+			height: 200px;
+			display: inline-block;
+    		vertical-align: middle;
+		}
+		.sc_bg img{
+			 width:420px;
+			    height:180px;
+			   
+			   
+		}
+		.dv1 img{
+			 width:100%;
+			 height:180px;
+			   
+			   
+		}
+		.dv1{
+			width: 100%;
+			height: 180px;
+		}
+	</style>
+</head>
+<body>
+	
+    <div class="container">
+		<header id="sc_header" class="sc_header">
+            <i class="iconfont">&#xe628;</i>
+            <h2>菜谱详情</h2>
+            <span>编辑</span>
+            <span>编辑</span>
+		</header>
+		<div class="content sc_content" id="idv">
+           
+			<div id="div1" >
+				<div class="sc_wenzhang" style="text-align: center;">
+	                <div class="dv1">
+	                    <img src="../img/bolang.png" alt="">
+	                </div>
+                	<p class="sc_txt">{{ob.foodName}}</p>
+                <div class="sc_date">
+                    <p><span class="sc_num">{{ob.collectNum}}</span>人收藏</p>
+                
+                	
+                    <img src="../img/8cc3914ce68777c2.jpg" />
+                     <p><span class="sc_num">{{ob.username}}</span></p>
+                </div>
+                <p><span style="font-size: 18px;">{{ob.foodDetail}}</span></p>
+                <br />
+                <table style="width: 100%;">
+                	<tr >
+                		<td style="text-align: left;"><a href="#"><span style="font-size: 23px;" :onclick='"sel("+ob.id+")"'>材料</span> </a></td>
+                		<td style="text-align: right;"><a href="#" onclick=add("+ob.id+")><span style="font-size: 23px; color: chocolate;" >加入菜篮子</span></a></td>
+                	</tr>
+                </table>
+                
+                <div id="div2">
+                	<table class="imagetable">
+					
+						<tr v-for="(item,i) in obj.data" :key="i">
+							<td>{{item.mabname}}</td><td>{{item.dosage}}</td>
+						</tr>
+						
+					</table>
+                </div>
+                <div class="div3">
+                	<h2>-烹饪步骤-</h2>
+                	<p><a href="#" :onclick='"selPeng("+ob.id+")"'>点击进入烹饪模式</a></p>
+                	
+             		<div id="div31">
+             			<ul>
+             				<li v-for="(item1,j) in pengren" key="j">
+             					<div class="div32">
+             						
+             						<p><span>第{{item1.steps}}步</span></p>
+             						<img src="../img/e2484681309d453e.jpg" />
+             						<p><span>{{pengren.stepDesc}}</span></p>
+             					</div>
+             				</li>
+             			</ul>
+             		</div>
+                </div>
+            </div>
+				
+			</div>   
+		</div>
+
+		
+	</div>
+	<script>
+		function GetQueryString(name){
+		        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+		        if(r!=null)return  unescape(r[2]); return null;
+		    }
+		
+		var cai = new Vue({
+			el:"#idv",
+			data:{
+				obj:"",
+				ob:"",
+				pengren:"",
+			}
+		});
+		$(function(){
+			
+			var id = GetQueryString("id");
+			
+			$.ajax({
+				async:true,
+				url:"http://localhost:8080/api/food/selectFoods?id="+id,
+				success:function(res){
+					cai.ob=res.data;
+				}
+			});
+				
+		});
+		function selPeng(id){
+			/*alert(id);*/
+			$.ajax({
+				
+				url:"http://localhost:8080/api/food/selectStepByFId?id="+id,
+				success:function(res){
+					
+					cai.pengren=res.data;
+				}
+			});
+		}
+	  	function sel(id){
+				/*alert(id);*/
+				$.ajax({
+					url:"http://localhost:8080/api/food/selectMaterial?fid="+id,
+					success:function(res){
+						/*alert(res);*/
+						cai.obj=res;
+						/*console.log()*/
+					}
+			});
+		}
+	</script>
+	<script>
+		/*function add(id){
+			$.ajax{
+				
+			}
+		}*/
+		
+	</script>
+</body>
+</html>

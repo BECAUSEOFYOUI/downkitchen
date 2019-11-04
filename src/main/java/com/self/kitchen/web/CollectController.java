@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 
 
 @RestController
+@CrossOrigin
 @Api(value = "收藏菜谱",tags = "收藏菜谱")
 public class CollectController {
 

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的收藏</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<style type="text/css">
+		
+		.sc_date{
+			color: #a0a0a0;
+			font-size: 0.24rem;
+			line-height: 0.68rem;
+			padding: 0;
+			text-align: center;
+			margin: 0;
+		}
+		.sc_date img {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			 display: inline-block;
+    		vertical-align: middle;
+		}
+		
+
+		
+		.div3{
+			margin-top: 40px;
+			text-align: center;
+		}
+
+		.div32 img{
+			width: 80%;
+			height: 200px;
+			display: inline-block;
+    		vertical-align: middle;
+		}
+		.sc_bg img{
+			 width:420px;
+			    height:180px;
+			   
+			   
+		}
+		.dv1 img{
+			 width:100%;
+			 height:180px;
+			   
+			   
+		}
+
+	</style>
+</head>
+<body>
+	
+    <div class="container">
+		<header id="sc_header" class="sc_header">
+            <i class="iconfont">&#xe628;</i>
+            <h2>首页</h2>
+
+		</header>
+		<div class="content sc_content" id="idv">
+           
+           <div class="content h_content" >
+			<div class="h_content_list_wrap" style="text-align: center;margin-top: 10px;margin-bottom: 20px;">
+				
+				<table border="4" bordercolor="white"  width="100%">
+					<tr>
+						<td width="25%"height="60px" style ="background-color: #FDA858;"><a href="zaocan1.html?id=12"><span style="font-size: 16px;color: whitesmoke;">家常菜</span></a></td>
+						<td width="25%"height="50px" style ="background-color: #FE7D99;"><a href="zaocan1.html?id=1"><span style="font-size: 16px;color: whitesmoke;">早餐</span></a></td>
+						<td width="25%"height="50px" style ="background-color: #FDA46A"><a href="zaocan1.html?id=30"><span style="font-size: 16px;color: whitesmoke;">宝宝辅食</span></a></td>
+						<td width="25%"height="50px" style ="background-color: #73ADED"><a href="zaocan1.html?id=46"><span style="font-size: 16px;color: whitesmoke;">食疗养生</span></a></td>
+					</tr>
+				</table>
+			</div>
+			<div id="dv6">
+				
+					<div id="banner">
+					<table width="100%" style="margin-bottom: 10px;">
+						<tr>
+							<td style="text-align: left;"><span style="font-size: 25px;">一日三餐</span></td>
+							<td style="text-align: right;"><a href="zaocan1.html?id=1"><span class="sc_num" style="color: #CACACA;font-size: 18px;">查看更多></span></a></td>
+						</tr>
+					</table>
+					
+					<table width="100%" height="100px" >
+						<tr >
+							<td width="50%" height="150px"  v-for="(item,i) in day" :key="i">
+								
+								<a href="foodmessage.html?id='+{{item.id}}+'">
+									<img style="width: 100%;height:100%;" src="../img/banner.png" alt="">
+									<p style="font-size: 20px;">{{item.foodName}}</p>
+								</a>
+							</td>
+						
+						</tr>
+					</table>
+					
+				</div>
+				
+				<!--快手菜推荐-->
+					<div id="banner" class="div3">
+					<table width="100%" style="margin-bottom: 10px;">
+						<tr>
+							<td style="text-align: left;"><span style="font-size: 25px;">快手菜推荐</span></td>
+							<td style="text-align: right;"><a href="zaocan1.html?id=1"><span class="sc_num" style="color: #CACACA; font-size: 18px;">查看更多></span></a></td>
+						</tr>
+					</table>
+					
+					<table width="100%" height="100px" >
+						<tr>
+							<td width="50%" height="150px" v-for="item in quick">
+								<a href="foodmessage.html?id='+{{item.id}}+'">
+									<img style="width: 100%;height:100%;" src="../img/banner.png" alt="">
+									<p style="font-size: 20px;">{{item.foodName}}</p>
+								</a>
+								
+							</td>
+							
+						</tr>
+					</table>
+					
+				</div>
+				
+				<hr style="height: 20px; border: none; border-top:15px solid #F6F6F6;margin-top:10px;" />
+				<!--本周热门菜谱-->
+				<div id="banner" class="div3">
+					<table width="100%" style="margin-bottom: 10px;">
+						<tr>
+							<td style="text-align: left;"><span style="font-size: 25px;">本周热门菜谱</span></td>
+							<td style="text-align: right;"><a href="zaocan.html"><span class="sc_num" style="color: #CACACA; font-size: 18px;">查看更多></span></a></td>
+						</tr>
+					</table>
+					
+					<table width="100%" height="100px" >
+						<tr>
+							
+							<td width="50%" height="150px" v-for="item in hot.data">
+								<a href="foodmessage.html?id='+{{item.id}}+'">
+									<img style="width: 100%;height: 100%;" src="../img/8cc3914ce68777c2.jpg" alt="">
+									<p style="font-size: 20px;">{{item.foodName}}</p>
+								</a>
+
+							</td>
+						</tr>
+						<!--<tr>
+							<td width="50%" height="150px">
+								<a href="foodmessage.html?id=1">
+									<img style="width: 100%;height:100%;" src="../img/banner.png" alt="">
+									<p style="font-size: 20px;">夏雨高</p>
+								</a>
+
+							</td>
+							<td width="50%" height="150px">
+								<img style="width: 100%;height: 100%;" src="../img/8cc3914ce68777c2.jpg" alt="">
+								<p style="font-size: 20px;">夏雨高</p>
+							</td>
+						</tr>-->
+					</table>
+					
+				</div>
+			</div>
+           
+           
+			
+		
+		</div>
+
+		
+	</div>
+		<footer class="h_footer">
+			<ul class="footer_list">
+				<li>
+					<a href="./shouye1.html">
+						<i class="iconfont">&#xe605;</i>
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="./jingxuan.html">
+						<i class="iconfont">&#xe60a;</i>
+						<p>精选</p>
+					</a>
+				</li>
+				<li>
+					<a href="./fenlie.html">
+						<i class="iconfont">&#xe671;</i>
+						<p>分类</p>
+					</a>
+				</li>
+				<li>
+					<a href="./xinwen.html">
+						<i class="iconfont">&#xe603;</i>
+						<p>新闻</p>
+					</a>
+				</li>
+				<li>
+					<a href="./wode.html">
+						<i class="iconfont">&#xe619;</i>
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+	</div>
+	<script>
+		
+		var cai = new Vue({
+			el:"#idv",
+			data:{
+				
+				day:"",
+				quick:"",
+				hot:""
+			}
+		});
+		$(function(){
+
+				$.ajax({
+				
+						url:"/api/first/day",
+						success:function(res){
+							/*alert(res);*/
+							cai.day=res.data;
+							console.log(res);
+						},
+						async:true
+				});
+				$.ajax({
+				url:"/api/first/quickFood",
+				success:function(res){
+					
+					cai.quick=res.data;
+				}
+			});
+			$.ajax({
+				url:"/api/first/hotFood",
+				success:function(res){
+					
+					cai.hot=res;
+				}
+			})
+		});
+		
+	</script>
+
+</body>
+</html>

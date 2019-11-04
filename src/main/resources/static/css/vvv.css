@@ -1,0 +1,152 @@
+.vvv li{
+		
+	   margin-left: 2%;
+
+	   align-items: center;
+}
+.div11{
+   height: 65%;
+	
+   max-height: 1500rpx;
+  overflow-x: scroll;
+  
+
+}
+.div22{
+ display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.vv{
+   height: 100%;
+	
+   max-height: 1500rpx;
+  overflow-x: scroll;
+  
+
+}
+.xxx{
+
+display: flex;
+ flex-direction:row;
+ 
+
+  
+  margin-left: 2%;
+
+
+   
+}
+.xxx img{
+ width:33% ;
+   align-items: center;
+   
+   height: 20%;
+   margin-bottom: 4%;
+}
+.sccpimg{
+	max-width: 100%;
+	 height: auto;
+}
+
+
+
+.dd{
+width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+   justify-content:flex-start
+
+
+}
+.dd_2{
+
+margin-left: 4%;
+margin-bottom: 2%;
+position: relative; 
+width: 20%;
+
+  
+}
+.dd_2 img{
+width: 100%;
+   border-radius: 8%;
+
+  
+}
+
+.ff{
+
+display: flex;
+ flex-direction:row;
+widows: 30%;
+height: 30%;
+
+
+}
+.sccpdiv{
+
+	height: 200%;
+   max-height: 200%;
+  overflow-y: scroll;
+  
+
+}
+
+.h_content{
+    padding: 0 1rem;
+    margin-left: -10%;
+    
+
+    /* overflow: hidden; */
+}
+
+.h_content1_list_wrap{
+    width: 16.5rem;
+    height: 0.8rem;
+      display: flex;
+  flex-direction: row;
+	
+
+}
+
+
+
+
+
+.h_content1_list_wrap::-webkit-scrollbar{
+	
+    display: none;
+}
+.h_content1_list{
+    width: 150%;
+    height: 0.5rem;
+    padding-top: 0.14rem;
+	margin-left: -2.5%;
+      background: beige;
+}
+.h_content1_list li{
+	   
+    float: left;
+    width: 0.56rem;
+    margin-right: 0.78rem;
+    height: 0.2rem;
+    margin-left: 2%;
+}
+.h_content1_list li a{
+   display: flex;
+  flex-direction: row;
+    font-size: 0.22rem;
+    color: #333;
+    margin-left: 21%;
+    padding-bottom: 0.05rem;
+}
+.h_content1_list li:nth-last-child(1){
+    margin-right: 0;
+}
+.h_content1_list li:nth-child(1) a{
+    border-bottom: 1px solid #ef972a;
+    color: #EDA852;
+}

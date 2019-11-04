@@ -168,5 +168,21 @@ public class UserServiceImpl implements UserService {
         return ResultVo.setERROR();
     }
 
+    @Override
+    public ResultVo updatePwd(String usertoken,String password) {
+        if(usertoken==null){
+            return ResultVo.setERROR("请先登录");
+        }else{
+           int i=  userDao.updatePwd(usertoken,password);
+           if(i==1){
+               return ResultVo.setOK("修改成功");
+           }else{
+               return ResultVo.setERROR("意外错误");
+           }
+
+        }
+
+    }
+
 
 }

@@ -10,7 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 
 
 @RestController
+@CrossOrigin
 @Api(value = "食物类型对应的各种数据",tags = "食物类型对应的各种数据")
 public class FoodsController {
     @Autowired
@@ -49,6 +51,7 @@ public class FoodsController {
             @ApiImplicitParam(name = "id",value = "食物ID",required = true,dataType = "int")
     })
     public ResultVo selectFoods(Integer id){
+        System.out.println("controller"+id);
         return foodService.selectFoods(id);
     }
 
@@ -66,7 +69,7 @@ public class FoodsController {
         return foodService.selectMaterial(fid);
     }
 
-    @GetMapping("/api/food/redisAdd")
+    /*@GetMapping("/api/food/redisAdd")
     public void saveRedis(){
 
         stringRedisTemplate.opsForValue().set("b","test");
@@ -78,5 +81,5 @@ public class FoodsController {
     @GetMapping("/api/food/redisDel")
     public boolean redisDel(){
         return stringRedisTemplate.delete("b");
-    }
+    }*/
 }

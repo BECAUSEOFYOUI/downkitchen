@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin
 public class VegetableController {
 
     @Autowired
     VegetableService vegetableService;
 
-    @GetMapping("/api/user/caiLanZi.do")
+    @GetMapping("/api/user/caiLanZi")
     @ApiOperation(value="实现菜篮子按菜品查询",notes = "实现菜篮子按菜品查询")
     @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
 
@@ -28,7 +30,7 @@ public class VegetableController {
         return vegetableService.selectVegetable(USERTOKEN);
     }
 
-    @DeleteMapping("/api/user/deleteByFid.do")
+    @DeleteMapping("/api/user/deleteByFid")
     @ApiOperation(value="实现菜篮子按菜品id删除",notes = "实现菜篮子按菜品id删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fid",value = "食物的id",required = true,dataType = "int"),
@@ -40,7 +42,7 @@ public class VegetableController {
         return vegetableService.deleteByFid(fid,USERTOKEN);
     }
 
-    @GetMapping("/api/user/deleteByUid.do")
+    @GetMapping("/api/user/deleteByUid")
     @ApiOperation(value="实现菜篮子按用户id删除",notes = "实现菜篮子按用户id删除")
     @ApiImplicitParam(name = "USERTOKEN",value = "用户私密令牌",required = true,dataType = "string")
     public ResultVo deleteByUid(String USERTOKEN) {
@@ -48,7 +50,7 @@ public class VegetableController {
         return vegetableService.deleteByUid(USERTOKEN);
     }
 
-    @GetMapping("/api/user/addByFid.do")
+    @GetMapping("/api/user/addByFid")
     @ApiOperation(value="实现菜篮子按菜品id添加",notes = "实现菜篮子按菜品id添加")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fid",value = "食物的id",required = true,dataType = "int"),

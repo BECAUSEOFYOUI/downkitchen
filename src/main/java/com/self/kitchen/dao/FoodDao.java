@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface FoodDao {
-    @Select("select f.*,u.username from food f,user u where f.id =#{foodId} and f.uid=u.id")
+    @Select("select f.*,u.username,u.usertoken from food f,user u where f.id =#{foodId} and f.uid=u.id")
     @Results(id = "foodDtoMap",
                 value = {
                 @Result(property = "id",column = "id"),
@@ -21,6 +21,7 @@ public interface FoodDao {
                 @Result(column = "collectnum",property = "collectNum"),
                 @Result(column = "username",property = "username"),
                 @Result(column = "fooddetail",property = "foodDetail"),
+                @Result (column = "usertoken",property = "usertoken"),
 
     })
     @ResultType(FoodDto.class)

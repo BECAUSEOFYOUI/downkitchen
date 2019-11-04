@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菜篮子</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<style type="text/css">
+		
+		.sc_date{
+			color: #a0a0a0;
+			font-size: 0.24rem;
+			line-height: 0.68rem;
+			padding: 0;
+			text-align: center;
+			margin: 0;
+		}
+		.sc_date img {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			 display: inline-block;
+    		vertical-align: middle;
+		}
+		
+		
+		.div3{
+			margin-top: 40px;
+			text-align: center;
+		}
+		
+		
+		
+		
+		.dv1 img{
+			 width:100%;
+			 height:180px;
+			   
+			   
+		}
+		.dv1{
+			width: 100%;
+			height: 180px;
+		}
+	</style>
+</head>
+<body>
+	
+    <div class="container">
+		<header id="sc_header" class="sc_header">
+            <i class="iconfont">&#xe628;</i>
+            <h2>我的</h2>
+           
+		</header>
+		<div class="content sc_content" id="idv">
+           
+			<div id="div1" >
+				<div class="sc_wenzhang" style="text-align: center;">
+	              
+                	<p class="sc_txt">修改</p>
+                <div class="sc_date" style="margin-top: 10px;">
+                   
+                	
+                    <img src="../img/8cc3914ce68777c2.jpg" />
+                     <p><span class="sc_num">{{obj.nickname}}</span></p>
+                      <p><span class="sc_num">你收藏的菜谱已经同步到云端，永远不会丢失</span></p>
+                     
+                </div>
+               
+               <div style="text-align: left; margin-top: 50px;">
+               		<a href="./cailanzi.html">
+               			<hr>
+	               		<table width="100%">
+	               			
+	               			<tr>
+	            				
+	               				<td style="text-align: center;"><span style="font-size: 25px;">菜篮子</span></td>
+	               				<td style="text-align: right;"><span style="font-size: 30px;">></span></td>	
+	               			</tr>
+	               			
+	               		</table>
+               			<hr>
+               		</a>
+               		
+               		
+               		<a href="#">
+               			<hr style="margin-top: 20px;"/>
+	               		<table width="100%">
+	               			
+	               			<tr>
+	            
+	               				<td style="text-align: center;"><span style="font-size: 25px;">历史记录</span></td>
+	               				<td style="text-align: right;"><span style="font-size: 30px;">></span></td>	
+	               			</tr>
+	               			
+	               		</table>
+               		<hr>
+               		</a>
+               		<a href="#">
+               			<hr style="margin-top: 20px;"/>
+	               		<table width="100%">
+	               			
+	               			<tr>
+	            
+	               				<td style="text-align: center;"><span style="font-size: 25px;">账户安全</span></td>
+	               				<td style="text-align: right;"><span style="font-size: 30px;">></span></td>	
+	               			</tr>
+	               			
+	               		</table>
+               		<hr>
+               		</a>
+               		
+               		
+               		
+               </div>
+				
+			</div>   
+		</div>
+
+		
+	</div>
+	<script>
+
+		var token = null;
+
+		// 判断浏览器是否支持 localStorage,如果支持使用该技术，如果不支持，使用jquery的cookie
+		if (typeof(Storage) !== "undefined") {
+			// 存储
+			token = localStorage.getItem("USERTOKEN");
+			alert(token);
+			/* username = localStorage.getItem("username");*/
+		} else {
+			token = $.cookie("USERTOKEN");
+			/*username = $.cookie("username");*/
+			alert(token);
+		}
+
+		var cai = new Vue({
+			el:"#idv",
+			data:{
+				obj:"",
+				
+			}
+		});
+		$(function(){
+		
+			/*alert(1);*/
+			$.ajax({
+				async:true,
+				url:"http://localhost:8080/api/user/userMessage?USERTOKEN="+token,
+				/*url:"http://localhost:8080/api/user/userMessage?USERTOKEN=087d91d115f",*/
+				success:function(res){
+					/*alert(res);*/
+					cai.obj=res.data;
+				}
+			});
+				
+		});
+		
+	
+	</script>
+		<footer class="my_footer">
+			<ul class="footer_list">
+				<li>
+					<a href="shouye1.html">
+						<i class="iconfont">&#xe605;</i>
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="./jingxuan.html">
+						<i class="iconfont">&#xe60a;</i>
+						<p>精选</p>
+					</a>
+				</li>
+				<li>
+					<a href="./fenlie.html">
+						<i class="iconfont">&#xe671;</i>
+						<p>分类</p>
+					</a>
+				</li>
+				<li>
+					<a href="./xinwen.html">
+						<i class="iconfont">&#xe603;</i>
+						<p>新闻</p>
+					</a>
+				</li>
+				<li>
+					<a href="javasrcipt:;">
+						<i class="iconfont">&#xe619;</i>
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+</body>
+</html>

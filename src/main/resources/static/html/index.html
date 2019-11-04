@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../js/api.js"></script>-->
+		<script src="../js/axios.min.js"></script>
+		<!--<script src="../js/cookie.js"></script>-->
+		<script src="../js/jquery-1.12.4.min.js"></script>
+		<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		
+		
+		<script type="application/javascript">
+			var token = null;
+	        var username=null;
+	        // 判断浏览器是否支持 localStorage,如果支持使用该技术，如果不支持，使用jquery的cookie
+	        if (typeof(Storage) !== "undefined") {
+	            // 存储
+	            token = localStorage.getItem("USERTOKEN");
+	            alert(token);
+	           /* username = localStorage.getItem("username");*/
+	        } else {
+	            token = $.cookie("USERTOKEN");
+	            /*username = $.cookie("username");*/
+				alert(token);
+	        }
+		</script>
+		
+	</head>
+	<body>
+		
+	</body>
+</html>

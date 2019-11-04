@@ -2,6 +2,9 @@ package com.self.kitchen.utils;
 
 import org.springframework.util.DigestUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Md5Utils {
 
     /*
@@ -21,6 +24,8 @@ public class Md5Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getMd5Str("123456"));
+
+        /*System.out.println(getMd5Str("123456"));*/
+
     }
 }

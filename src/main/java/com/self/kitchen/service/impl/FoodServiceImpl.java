@@ -61,16 +61,15 @@ public class FoodServiceImpl implements FoodService {
             childType.setId(t.getId());
             childType.setName(t.getName());
             List<FoodsType> foodsType=null;
-            String foodsTypeStr=redisTemplate.opsForValue().get("FOODSTYPE");
+            String foodsTypeStr=redisTemplate.opsForValue().get("FOODSTYPE"+i);
             if(foodsTypeStr!=null&&!foodsTypeStr.equals("")){
                 System.out.println("从缓存中获取FoodsType");
                 foodsType=JsonUtils.jsonToList(foodsTypeStr,FoodsType.class);
             }else{
                 System.out.println("从数据库中获取FoodsType");
                 foodsType = foodTypeDao.selectFoodsType(t.getId());
-                redisTemplate.opsForValue().set("FOODSTYPE",JsonUtils.objectToJson(foodsType),240,TimeUnit.HOURS);
+                redisTemplate.opsForValue().set("FOODSTYPE"+i,JsonUtils.objectToJson(foodsType),240,TimeUnit.HOURS);
             }
-
             childType.setChildTypes(foodsType);
             childTypeList.add(childType);
         }

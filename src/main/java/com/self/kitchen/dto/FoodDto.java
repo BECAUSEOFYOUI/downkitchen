@@ -14,5 +14,6 @@ public class FoodDto implements Serializable {
     private int collectNum;
     private Integer uid;
     private String username;
+    private String usertoken;
 
 }

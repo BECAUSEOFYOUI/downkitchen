@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<link type="text/css" rel="stylesheet" href="../css/uiAlertView-1.0.0.css" />
+		<script type="text/javascript" src="../js/jquery.uiAlertView-1.0.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../fonts/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/master.css"/>
+		<script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../js/api.js"></script>-->
+		<script src="../js/axios.min.js"></script>
+		<!--<script src="../js/cookie.js"></script>-->
+		<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+	</head>
+	<body>
+		<div class="login-bigbox bigbox">
+
+			<!-- header -->
+			<header class="login-header">
+				<span class="iconfont icon-T"></span>
+			</header>
+
+
+			<!-- main -->
+			<div class="login-main">
+				<form  method="post" id="form1">
+					<div class="lm-input">
+
+						<lable for="na">账&nbsp;&nbsp;号：</lable>
+						<input type="text" name="username" id="na" value="" class="tel"/>
+					</div>
+					<div class="lm-input">
+						<lable for="yan">密码：</lable>
+						<input type="password" name="password" id="yan" value="" class="yanma" style="width: 2rem;"/>
+						
+					</div>
+					<input type="button" name="" id="" value="登录" class="loginipt" onclick="login()" />
+				</form>
+				<p>免注册，直接用邮箱就能登陆</p>
+				
+			</div>
+
+		</div>
+		<script type="application/javascript">
+			function login(){
+				alert(1);
+				alert($("#form1").serialize());
+				$.ajax({
+						type:"post",
+						url:"http://localhost:8080/api/user/login",
+						data:$("#form1").serialize(),
+						dataType:"json",
+						success:function (data) {
+							/*alert(data);*/
+							if (data.code==200){
+								var token = data.data;
+
+								// 判断浏览器是否支持 localStorage,如果支持使用该技术，如果不支持，使用jquery的cookie
+								if (typeof(Storage) !== "undefined") {
+									// 存储
+									localStorage.setItem("USERTOKEN", token);
+									alert(token);
+									/*localStorage.setItem("username",username);*/
+								} else {
+									$.cookie('USERTOKEN', token, {expires: 7, path: '/haodou'});
+									
+								}
+
+								//存入cookie中
+								location.href="shouye1.html";
+							}else {
+								alert(data.errorMsg);
+							}
+						}
+					})
+			}
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菜篮子</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/vue.min.js"></script>
+	<style type="text/css">
+		
+		.sc_date{
+			color: #a0a0a0;
+			font-size: 0.24rem;
+			line-height: 0.68rem;
+			padding: 0;
+			text-align: center;
+			margin: 0;
+		}
+		.sc_date img {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			 display: inline-block;
+    		vertical-align: middle;
+		}
+		
+		
+		.div3{
+			margin-top: 40px;
+			text-align: center;
+		}
+		
+		
+		
+		
+		.dv1 img{
+			 width:100%;
+			 height:180px;
+			   
+			   
+		}
+		.dv1{
+			width: 100%;
+			height: 180px;
+		}
+	</style>
+</head>
+<body>
+	
+    <div class="container">
+		<header id="sc_header" class="sc_header">
+            <i class="iconfont">&#xe628;</i>
+            <h2>菜篮子</h2>
+           
+		</header>
+		
+		<div id="idv">
+			
+			<div class="content sc_content" id="idv" v-for="(item,i) in obj" :key="i">
+	           	<table width="100%" height="80px "style="margin-top: 20px;" >
+	           		<tr>
+	           			
+	           				<td style="width: 100px;">
+	           				<a href="foodmessage.html?id=1"><img style="width: 80px;height: 80px;" src="../img/8cc3914ce68777c2.jpg" /></a>
+	           				
+		           			</td>
+		           			<td style="text-align: left;">
+		           				<span style="font-size: 16px;">{{item.foodName}}</span>
+		           				<!--<a href="#" :onclick='"sel("+item.fid+")"'><p><span style="font-size: 20px;">点我查看材料</span></p></a>	-->
+		           				
+		           			</td>
+	           		
+		           			<td style="text-align: center; margin-right: 10px;">
+		           					
+		           				<a href="#"><span id="del" style="font-size: 16px;color: #FEBF07;" @click="del(i)" >移除这个菜</span></a>
+		           				
+		           				
+		           			</td>
+	           			
+	           			
+	           		</tr>
+	           	</table>
+	           	<hr style="margin-top: 10px;">
+	           	
+	           	<table width="100%" style="margin-top: 10px;  background-color: #F6F6F6;" border="4" bordercolor="white">
+	           		<tr style="width: 100%; height: 50px; margin-left: ;" v-for="item in item.mariables" >
+	           			<td >&nbsp;&nbsp;<span style="font-size: 18px;">{{item.mabname}}</span></td>
+	           			<td style="text-align: right;"><span style="font-size: 18px; ">{{item.dosage}}&nbsp;&nbsp;&nbsp;</span></td>
+	           		</tr>
+	           		
+	           	</table>
+				
+			</div>
+		</div>
+		
+
+		
+	</div>
+	<script>
+		
+		var cai = new Vue({
+			el:"#idv",
+			data:{
+				obj:"",
+				mar:"",
+				
+			},
+			methods:{
+				
+				del:function(index){
+					/*this.items.splice(index,1);*/
+					this.obj.splice(index,1);
+					
+				}
+			}
+		});
+		
+		var token = null;
+	        var username=null;
+	        // 判断浏览器是否支持 localStorage,如果支持使用该技术，如果不支持，使用jquery的cookie
+	        if (typeof(Storage) !== "undefined") {
+	            // 存储
+	            token = localStorage.getItem("USERTOKEN");
+	            /*alert(token);*/
+	        
+	        } else {
+	            token = $.cookie("USERTOKEN");
+	           
+				alert(token);
+	        }
+		$(function(){
+			
+			
+			
+		
+			$.ajax({
+				async:true,
+				url:"http://localhost:8080/api/user/caiLanZi?USERTOKEN=ba80f4a76a8",
+				success:function(res){
+					/*alert(res);*/
+					cai.obj=res.data;
+					
+					
+				}
+				
+			});
+			
+		});
+		
+		
+	
+	</script>
+	<script>
+		/*function add(id){
+			$.ajax{
+				
+			}
+		}*/
+		
+	</script>
+</body>
+</html>

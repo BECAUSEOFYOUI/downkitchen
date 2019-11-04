@@ -19,4 +19,6 @@ public interface UserService {
     ResultVo register(String username, String password);
 
     ResultVo validateCode(String code);
+
+    ResultVo updatePwd(String usertoken,String password);
 }

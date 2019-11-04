@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>厨房新闻</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+
+    <link rel="stylesheet" href="../css/vvv.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="../js/js.js"></script>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+    <div class="container">
+		<header class="gwc_header">
+			<h1>厨房新闻</h1>
+		<!--	<span class="gwc_bianji">编辑</sapn>-->
+		</header>
+
+
+		
+		<div class="content h_content1">
+			<div class="h_content1_list_wrap">
+				<ul class="h_content1_list" id="div1">
+				  <li v-for="list in list.data"  ><a href="#"  :onclick='"tj("+list.id+")"' >{{list.name}}</a></li>
+				</ul>
+			</div>
+		</div>
+
+
+<div class="div11">
+			<div id="div" class="vvv" >
+
+   <ul v-for="text in source"><a href="#" :onclick='"zs("+text.id+")"'>
+        <li style="color: #A2D4DD;;"><h1>{{text.headline}}</h1></li>
+        <div  class="xxx" >
+            <img v-for="img in text.imgs" :src="img.imgs" >
+        </div>
+   </a> </ul>
+
+
+</div>
+	</div>		
+	<script>
+
+
+
+        $(function () {
+            var lt = new Vue({
+                el: '#div1',
+                data: {
+                    list: "",
+
+                }
+
+            })
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/list",
+                dataType:"json",
+                success:function(data){
+
+                    lt.list=data
+                    tj(1)
+                }
+
+            })
+
+        })
+
+</script>	
+<script>
+
+    var di = new Vue({
+        el: '#div',
+        data: {
+            source: "",
+
+        }
+    })
+
+    function tj(num) {
+        $.ajax({
+            type:"post",
+            url:"http://localhost:8080/category/"+num,
+            dataType:"json",
+            success:function(data){
+           
+                di.source=data.data
+            }
+
+        })}
+    function zs(num) {
+        location.href="xiangqing.html?id="+num;
+       }
+
+
+</script>
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+
+		<footer class="gwc_footer">
+			<ul class="footer_list">
+				<li>
+					<a href="./shouye.html">
+						<i class="iconfont">&#xe605;</i>
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="./jingxuan.html">
+						<i class="iconfont">&#xe60a;</i>
+						<p>精选</p>
+					</a>
+				</li>
+				<li>
+					<a href="./fenlie.html">
+						<i class="iconfont">&#xe671;</i>
+						<p>分类</p>
+					</a>
+				</li>
+				<li>
+					<a href="javasrcipt:;">
+						<i class="iconfont">&#xe603;</i>
+						<p>购物车</p>
+					</a>
+				</li>
+				<li>
+					<a href="./wode.html">
+						<i class="iconfont">&#xe619;</i>
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+	</div>
+
+    <script type="text/javascript">
+        let checkboxs = document.querySelectorAll('.checkboxs');
+        let checkboxAll = document.querySelector('.checkboxAll');
+        for(let i=0; i<checkboxs.length; i++){
+
+            checkboxs[i].onchange = function(){
+
+
+            }
+            checkboxAll.onchange = function(){
+                checkboxs[i].checked = this.checked;
+            }
+
+        }
+
+
+
+    </script>
+</body>
+</html>

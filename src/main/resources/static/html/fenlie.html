@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分类</title>
+    <link rel="stylesheet" href="../css/base.css">
+	<link rel="stylesheet" href="../css/master.css">
+	<link rel="stylesheet" href="../fonts/iconfont.css">
+	<script src="../js/rem.js"></script>
+		    <link rel="stylesheet" href="../css/vvv.css"/>
+    <link rel="stylesheet" href="../css"/>
+
+    <script src="../js/jquery-1.12.4.min.js"></script>
+
+    <script src="../js/vue.min.js"></script>
+	<style type="text/css">
+		.fl_content::-webkit-scrollbar{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+	
+	</script>
+    <div class="container">
+		<header class="gwc_header">
+			<h1>厨房新闻</h1>
+
+		</header>
+
+
+		<div class="content fl_content">
+           
+      <div id="div" class="div22">
+      	<div   v-for="text in source">
+      		<h1 style="margin-left: 45%; margin-top: 10px; margin-bottom: 15px;">  {{text.name}}</h1>
+      		<div class="dd">
+      			<div class="dd_2" v-for="img in text.childTypes">
+      				<a href="#" :onclick='"fenlei("+img.id+")"' ><img src="http://p18.qhimgs3.com/dr/240_240_80/t0143f62e445727f8f6.jpg?t=1554933718"/></a>
+      			
+      			
+				<span style="position: absolute; bottom: 20%;margin-left: 30%; margin-right: 20; color: #FFFFFF;"><h2 style=" color: #FFFFFF;">{{img.typename}}</h2></span> 
+      			</div>
+      		</div>
+   
+
+   
+</div>
+
+</div>
+	</div>		
+
+<script>
+ $(function(){
+  	
+
+
+        $.ajax({
+    
+            url:"http://localhost:8080/api/food/selectFoodsType",
+            dataType:"json",
+            success:function(data){
+
+                di.source=data.data
+            }
+
+        })
+    })
+
+  
+			var di = new Vue({
+				el: '#div',
+				data: {
+				
+					source:"",
+		
+				
+				
+				
+			}	})
+
+ 
+
+ function fenlei(num) {
+        location.href="zaocan1.html?id="+num;
+       }
+
+
+</script>     
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+
+
+	
+
+		<footer class="fl_footer">
+			<ul class="footer_list">
+				<li>
+					<a href="./shouye1.html">
+						<i class="iconfont">&#xe605;</i>
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="./jingxuan.html">
+						<i class="iconfont">&#xe60a;</i>
+						<p>精选</p>
+					</a>
+				</li>
+				<li>
+					<a href="javasrcipt:;">
+						<i class="iconfont">&#xe671;</i>
+						<p>分类</p>
+					</a>
+				</li>
+				<li>
+					<a href="./xinwen.html">
+						<i class="iconfont">&#xe603;</i>
+						<p>新闻</p>
+					</a>
+				</li>
+				<li>
+					<a href="./wode.html">
+						<i class="iconfont">&#xe619;</i>
+						<p>我的</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+	</div>
+
+</body>
+</html>
